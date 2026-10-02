@@ -1,0 +1,897 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#111827"
+    >
+
+    <meta
+        name="description"
+        content="Chuka Tournament Hub - Weekly eFootball tournaments"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./css/app.css"
+    >
+
+    <title>
+        Chuka Tournament Hub
+    </title>
+
+    <style>
+        .admin-section { margin: 2rem 0; padding: 1.25rem; border: 1px solid rgba(148,163,184,.35); border-radius: 1rem; background: rgba(15,23,42,.45); }
+        .admin-table-wrapper { width: 100%; overflow-x: auto; }
+        .admin-table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        .admin-table th, .admin-table td { padding: .8rem; text-align: left; border-bottom: 1px solid rgba(148,163,184,.25); vertical-align: top; }
+        .admin-table th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; }
+        .admin-table .status-pill { display: inline-block; padding: .2rem .55rem; border-radius: 999px; font-size: .75rem; font-weight: 700; background: rgba(245,158,11,.15); }
+        .admin-table .verify-payment-button { white-space: nowrap; }
+        .admin-section .section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+        .admin-overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(135px, 1fr)); gap: .8rem; margin: 1rem 0 1.25rem; }
+        .admin-overview-card { padding: 1rem; border: 1px solid rgba(148,163,184,.3); border-radius: .8rem; }
+        .admin-overview-card strong { display:block; font-size:1.6rem; margin-top:.35rem; }
+        .admin-overview-card span { font-size:.8rem; opacity:.8; }
+
+        .fixture-section { margin: 2rem 0; padding: 1.25rem; border: 1px solid rgba(148,163,184,.35); border-radius: 1rem; background: rgba(15,23,42,.35); }
+        .fixture-rounds { display:grid; grid-template-columns:repeat(auto-fit,minmax(245px,1fr)); gap:1rem; margin-top:1rem; align-items:start; }
+        .fixture-round { border:1px solid rgba(148,163,184,.25); border-radius:.85rem; padding:.8rem; min-width:0; }
+        .fixture-match { padding:.8rem; margin:.65rem 0; border-radius:.7rem; background:rgba(148,163,184,.08); border:1px solid rgba(148,163,184,.18); }
+        .fixture-player { display:flex; justify-content:space-between; gap:.6rem; padding:.35rem 0; overflow-wrap:anywhere; }
+        .fixture-player.winner { font-weight:800; }
+        .fixture-player .score { min-width:1.5rem; text-align:right; }
+        .fixture-meta { opacity:.75; font-size:.8rem; margin-bottom:.45rem; }
+        .fixture-actions { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.65rem; }
+        .fixture-score-input { width:4rem; min-width:0; padding:.45rem; }
+        .fixture-admin-controls { display:flex; gap:.7rem; flex-wrap:wrap; align-items:center; margin:1rem 0; }
+        .fixture-note { font-size:.9rem; opacity:.8; }
+        .fixture-status { display:inline-block; border-radius:999px; padding:.18rem .5rem; font-size:.72rem; font-weight:700; background:rgba(148,163,184,.15); }
+
+        .hub-section { margin: 2rem 0; padding: 1.25rem; border: 1px solid rgba(148,163,184,.35); border-radius: 1rem; background: rgba(15,23,42,.35); scroll-margin-top: 1rem; }
+        .hub-section h2 { margin-bottom: .45rem; }
+        .hub-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:.8rem; }
+        .hub-rule { padding:1rem; border:1px solid rgba(148,163,184,.22); border-radius:.8rem; background:rgba(148,163,184,.06); }
+        .hub-rule strong { display:block; margin-bottom:.25rem; }
+        .hub-actions { display:flex; gap:.7rem; flex-wrap:wrap; margin-top:1rem; }
+        .hub-link { display:inline-flex; align-items:center; justify-content:center; padding:.65rem .9rem; border:1px solid rgba(148,163,184,.3); border-radius:.7rem; text-decoration:none; font-weight:700; }
+        .hub-muted { opacity:.78; font-size:.9rem; }
+        .champions-list { display:grid; gap:.65rem; }
+        .champion-row { display:flex; justify-content:space-between; gap:1rem; align-items:center; padding:.85rem 1rem; border:1px solid rgba(148,163,184,.22); border-radius:.75rem; background:rgba(148,163,184,.06); }
+        .champion-row strong { color:#f6ce72; }
+        @media (max-width:560px) { .champion-row { align-items:flex-start; flex-direction:column; gap:.25rem; } }
+        .verified-members-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.7rem; margin-top:.8rem; }
+        .verified-member-row { display:flex; align-items:center; gap:.7rem; padding:.8rem 1rem; border:1px solid rgba(148,163,184,.22); border-radius:.75rem; background:rgba(148,163,184,.06); }
+        .verified-member-number { width:2rem; height:2rem; display:grid; place-items:center; border-radius:50%; background:rgba(148,163,184,.12); font-weight:700; }
+        .verified-member-name { font-weight:650; }
+        .verified-member-status { margin-left:auto; font-size:.75rem; font-weight:700; letter-spacing:.05em; }
+
+    </style>
+
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         APP
+         ===================================================== -->
+
+    <div
+        id="app"
+        class="app"
+    >
+
+
+        <!-- =================================================
+             AUTH SCREEN
+             ================================================= -->
+
+        <section
+            id="auth-screen"
+            class="screen"
+        >
+
+            <div class="auth-card">
+
+                <div class="brand-lockup auth-brand">
+                    <img class="crest" src="https://dbiol.chuka.ac.ke/wp-content/uploads/2025/04/chuka-uni-logo-HD-1-1.jpg" alt="Chuka University crest">
+                    <div class="brand-copy"><strong>CHUKA</strong><span>Tournament Hub</span></div>
+                </div>
+
+                <h1>
+                    Tournament Hub
+                </h1>
+
+                <p>
+                    Weekly eFootball tournaments.
+                    Register, compete and become
+                    a Chuka champion.
+                </p>
+
+                <button
+                    id="google-sign-in"
+                    type="button"
+                    class="google-button"
+                    aria-label="Continue with Google"
+                >
+                    <img class="google-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="">
+                    <span>Continue with Google</span>
+                </button>
+
+                <p
+                    id="auth-message"
+                    class="message"
+                ></p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             DASHBOARD
+             ================================================= -->
+
+        <section
+            id="dashboard-screen"
+            class="screen hidden"
+        >
+
+
+            <!-- Header -->
+
+            <header class="app-header">
+
+                <div>
+
+                    <div class="brand-lockup">
+                        <img class="crest small" src="https://dbiol.chuka.ac.ke/wp-content/uploads/2025/04/chuka-uni-logo-HD-1-1.jpg" alt="Chuka University crest">
+                        <div class="brand-copy"><strong>CHUKA</strong><span>Tournament Hub</span></div>
+                    </div>
+
+                </div>
+
+
+                <div class="header-account">
+
+                    <span
+                        id="dashboard-player-name"
+                    >
+                        Player
+                    </span>
+
+                    <button
+                        id="logout-button"
+                        type="button"
+                        class="secondary-button"
+                    >
+                        Logout
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- Main -->
+
+            <main class="dashboard-content">
+
+
+                <!-- Welcome -->
+
+                <section class="welcome-section">
+
+                    <p class="eyebrow">
+                        WELCOME BACK
+                    </p>
+
+                    <h2
+                        id="welcome-player-name"
+                    >
+                        Player
+                    </h2>
+
+                    <p>
+                        Your weekly eFootball
+                        tournament starts here.
+                    </p>
+
+                </section>
+
+
+                <!-- =================================================
+                     CURRENT TOURNAMENT
+                     ================================================= -->
+
+                <section
+                    id="tournament-section"
+                    class="tournament-section"
+                >
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                CURRENT TOURNAMENT
+                            </p>
+
+                            <h2>
+                                This Week
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        id="tournament-card"
+                        class="tournament-card"
+                    >
+
+                        <div class="tournament-image-wrapper">
+
+                            <img
+                                id="tournament-image"
+                                class="tournament-image"
+                                src=""
+                                alt="Current tournament"
+                            >
+
+                        </div>
+
+
+                        <div class="tournament-details">
+
+                            <p
+                                id="tournament-name"
+                                class="tournament-label"
+                            >
+                                Loading tournament...
+                            </p>
+
+                            <div
+                                id="tournament-status"
+                                class="status-badge"
+                            >
+                                REGISTRATION
+                            </div>
+
+
+                            <div class="registration-count">
+
+                                <strong
+                                    id="registered-count"
+                                >
+                                    0
+                                </strong>
+
+                                <span>
+                                    /
+                                </span>
+
+                                <strong>
+                                    512
+                                </strong>
+
+                                <span>
+                                    REGISTERED
+                                </span>
+
+                            </div>
+
+
+                            <p
+                                id="slots-remaining"
+                                class="slots-remaining"
+                            >
+                                512 slots remaining
+                            </p>
+
+
+                            <button
+                                id="register-button"
+                                type="button"
+                                class="primary-button"
+                            >
+                                Register for Tournament
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                     REGISTRATION
+                     ================================================= -->
+
+                <section
+                    id="registration-section"
+                    class="registration-section hidden"
+                >
+
+                    <div class="registration-card">
+
+
+                        <div class="registration-header">
+
+                            <p class="eyebrow">
+                                PLAYER REGISTRATION
+                            </p>
+
+                            <h2>
+                                Complete Your Registration
+                            </h2>
+
+                            <p>
+                                Complete your player details below.
+                                Your Google account is automatically
+                                connected to this registration.
+                            </p>
+
+                        </div>
+
+
+                        <form
+                            id="registration-form"
+                            class="registration-form"
+                        >
+
+
+                            <!-- Google Account -->
+
+                            <div class="form-group">
+
+                                <label
+                                    for="registration-google-account"
+                                >
+                                    Google Account
+                                </label>
+
+                                <input
+                                    id="registration-google-account"
+                                    class="readonly-field"
+                                    type="email"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- Player Name -->
+
+                            <div class="form-group">
+
+                                <label
+                                    for="registration-player-name"
+                                >
+                                    Player Name
+                                </label>
+
+                                <input
+                                    id="registration-player-name"
+                                    class="readonly-field"
+                                    type="text"
+                                    readonly
+                                >
+
+                            </div>
+
+
+                            <!-- eFootball Username -->
+
+                            <div class="form-group">
+
+                                <label
+                                    for="efootball-username"
+                                >
+                                    eFootball Username
+                                </label>
+
+                                <input
+                                    id="efootball-username"
+                                    type="text"
+                                    autocomplete="off"
+                                    placeholder="Enter your eFootball username"
+                                    required
+                                >
+
+                                <p class="form-help">
+                                    Use the username other players
+                                    will recognize when contacting
+                                    you for a match.
+                                </p>
+
+                            </div>
+
+
+                            <!-- WhatsApp -->
+
+                            <div class="form-group">
+
+                                <label
+                                    for="whatsapp-number"
+                                >
+                                    WhatsApp Number
+                                </label>
+
+                                <input
+                                    id="whatsapp-number"
+                                    type="tel"
+                                    autocomplete="tel"
+                                    placeholder="e.g. 0712345678"
+                                    required
+                                >
+
+                                <p class="form-help">
+                                    Used for tournament match
+                                    communication.
+                                </p>
+
+                            </div>
+
+
+                            <!-- M-Pesa Name -->
+
+                            <div class="form-group">
+
+                                <label
+                                    for="mpesa-name"
+                                >
+                                    M-Pesa Name
+                                </label>
+
+                                <input
+                                    id="mpesa-name"
+                                    type="text"
+                                    autocomplete="off"
+                                    placeholder="Name shown on your M-Pesa payment"
+                                    required
+                                >
+
+                                <p class="form-help">
+                                    Enter the name associated
+                                    with the payment you make.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Payment Information -->
+
+                            <div class="payment-info">
+
+                                <div class="payment-info-title">
+                                    REGISTRATION PAYMENT
+                                </div>
+
+                                <p>
+                                    Send your tournament payment to:
+                                </p>
+
+                                <div class="payment-till">
+                                    M-Pesa Till 6817863
+                                </div>
+
+                                <p>
+                                    After making payment, enter the
+                                    M-Pesa name above. You will then
+                                    be able to claim your payment as paid.
+                                </p>
+
+                                <p class="form-help">
+                                    Your payment claim will remain
+                                    unverified until the Chuka admin
+                                    confirms the payment.
+                                </p>
+
+                            </div>
+
+
+                            <!-- Registration Message -->
+
+                            <p
+                                id="registration-message"
+                                class="message"
+                            ></p>
+
+
+                            <!-- Registration Actions -->
+
+                            <div class="registration-actions">
+
+                                <button
+                                    id="cancel-registration"
+                                    type="button"
+                                    class="secondary-button"
+                                >
+                                    Cancel
+                                </button>
+
+                                <button
+                                    id="submit-registration"
+                                    type="submit"
+                                    class="primary-button"
+                                >
+                                    Complete Registration
+                                </button>
+
+                            </div>
+
+                        </form>
+
+
+                        <!-- =================================================
+                             PAYMENT STATUS
+                             ================================================= -->
+
+                        <div
+                            id="payment-status-section"
+                            class="payment-status-section hidden"
+                        >
+
+                            <div class="payment-status-header">
+
+                                <h3>
+                                    Payment Status
+                                </h3>
+
+                                <span
+                                    id="payment-status-badge"
+                                    class="payment-status-badge"
+                                >
+                                    UNVERIFIED
+                                </span>
+
+                            </div>
+
+
+                            <p
+                                id="payment-status-text"
+                            >
+                                Make your tournament payment
+                                to the M-Pesa Till above.
+                            </p>
+
+
+                            <button
+                                id="claim-payment-button"
+                                type="button"
+                                class="primary-button"
+                            >
+                                I HAVE PAID
+                            </button>
+
+
+                            <p
+                                id="payment-claim-message"
+                                class="payment-claim-message"
+                            ></p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+
+                <!-- ADMIN DASHBOARD: shown only to the configured admin account -->
+                <section id="admin-section" class="admin-section hidden" aria-labelledby="admin-heading">
+                    <div class="section-heading">
+                        <div>
+                            <p class="eyebrow">ADMINISTRATION</p>
+                            <h2 id="admin-heading">Admin Dashboard</h2>
+                            <p>Tournament overview and payment verification. This admin account does not register as a player.</p>
+                        </div>
+                        <button id="refresh-payment-claims" type="button" class="secondary-button">Refresh claims</button>
+                    </div>
+                    <div class="admin-overview-grid" aria-label="Live tournament totals">
+                        <div class="admin-overview-card"><span>REGISTERED</span><strong id="admin-registered-count">—</strong></div>
+                        <div class="admin-overview-card"><span>AWAITING VERIFICATION</span><strong id="admin-pending-count">—</strong></div>
+                        <div class="admin-overview-card"><span>ACTIVE PLAYERS</span><strong id="admin-active-count">—</strong></div>
+                        <div class="admin-overview-card"><span>SLOTS REMAINING</span><strong id="admin-slots-count">—</strong></div>
+                    </div>
+                    <p id="admin-message" class="message" role="status"></p>
+                    <h3>Payment verification queue</h3>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Player / M-Pesa name</th>
+                                    <th>Registration</th>
+                                    <th>Payment status</th>
+                                    <th>Registered</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="payment-claims-list">
+                                <tr><td colspan="5">Sign in as the admin to load payment claims.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="form-help">Click Verify only after checking the payment in M-Pesa. The player's status becomes ACTIVE only after verification.</p>
+
+                    <section class="admin-media-card" aria-labelledby="admin-image-heading">
+                        <div class="admin-media-copy">
+                            <p class="eyebrow">TOURNAMENT BRANDING</p>
+                            <h3 id="admin-image-heading">Tournament image</h3>
+                            <p class="fixture-note">Replace the image shown on the main tournament card. Upload a JPG/PNG/WebP image or paste a public image URL.</p>
+                        </div>
+                        <div class="admin-media-grid">
+                            <div class="admin-image-preview-wrap">
+                                <img id="admin-tournament-image-preview" class="admin-image-preview" src="" alt="Tournament image preview">
+                                <span id="admin-image-empty" class="admin-image-empty">No image selected</span>
+                            </div>
+                            <div class="admin-media-form">
+                                <label class="admin-file-label" for="tournament-image-file">
+                                    <span>Choose image</span>
+                                    <input id="tournament-image-file" type="file" accept="image/jpeg,image/png,image/webp">
+                                </label>
+                                <div class="admin-url-row">
+                                    <input id="tournament-image-url" type="url" placeholder="https://example.com/tournament-image.jpg" autocomplete="off">
+                                    <button id="save-tournament-image-url" type="button" class="secondary-button">Use URL</button>
+                                </div>
+                                <button id="upload-tournament-image" type="button" class="primary-button">Upload &amp; replace image</button>
+                                <p id="admin-image-message" class="message" role="status"></p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="admin-media-card admin-whatsapp-card" aria-labelledby="admin-whatsapp-heading">
+                        <div class="admin-media-copy">
+                            <p class="eyebrow">COMMUNITY LINKS</p>
+                            <h3 id="admin-whatsapp-heading">WhatsApp groups</h3>
+                            <p class="fixture-note">Add the three official WhatsApp groups. These links will appear on the player page so members can join directly.</p>
+                        </div>
+                        <div class="admin-whatsapp-grid">
+                            <label><span>Normal / Player Group</span><input id="whatsapp-normal-url" type="url" placeholder="https://chat.whatsapp.com/..." autocomplete="off"></label>
+                            <label><span>Results Group</span><input id="whatsapp-results-url" type="url" placeholder="https://chat.whatsapp.com/..." autocomplete="off"></label>
+                            <label><span>Admin Updates Group</span><input id="whatsapp-admin-updates-url" type="url" placeholder="https://chat.whatsapp.com/..." autocomplete="off"></label>
+                            <button id="save-whatsapp-groups" type="button" class="primary-button">Save WhatsApp groups</button>
+                            <p id="whatsapp-groups-message" class="message" role="status"></p>
+                        </div>
+                    </section>
+
+                    <h3>Player management</h3>
+                    <p class="fixture-note">Only players with VERIFIED payments are eligible for the knockout draw.</p>
+                    <div class="admin-table-wrapper">
+                        <table class="admin-table">
+                            <thead><tr><th>Player</th><th>Registration ID</th><th>Payment</th><th>Draw eligibility</th></tr></thead>
+                            <tbody id="admin-players-list"><tr><td colspan="4">Load admin dashboard to view players.</td></tr></tbody>
+                        </table>
+                    </div>
+
+                    <div class="fixture-admin-controls">
+                        <button id="generate-fixtures-button" type="button" class="primary-button">Generate knockout fixtures</button>
+                        <button id="refresh-fixtures-button" type="button" class="secondary-button">Refresh fixtures</button>
+                    </div>
+                    <p class="fixture-note">Generating a draw creates a single bracket for this tournament. It is blocked if fixtures already exist, so results are not accidentally overwritten.</p>
+                </section>
+
+                <section id="fixtures-section" class="fixture-section" aria-labelledby="fixtures-heading">
+                    <div class="section-heading">
+                        <div><p class="eyebrow">KNOCKOUT COMPETITION</p><h2 id="fixtures-heading">Tournament Fixtures</h2><p class="fixture-note">The draw contains verified players only. Scores and winners appear here after the admin records a result.</p></div>
+                        <div class="fixture-actions">
+                            <a class="secondary-button" href="./public.html" target="_blank" rel="noopener">Open public live dashboard</a>
+                            <button id="refresh-public-fixtures" type="button" class="secondary-button">Refresh fixtures</button>
+                        </div>
+                    </div>
+                    <p id="fixtures-message" class="message" role="status">Loading tournament fixtures…</p>
+                    <div id="fixture-rounds" class="fixture-rounds"><p>Fixtures will appear here once the admin generates the draw.</p></div>
+                </section>
+
+                <!-- =================================================
+                     QUICK LINKS
+                     ================================================= -->
+
+                <!-- =================================================
+                     TOURNAMENT INFORMATION
+                     ================================================= -->
+
+                <section id="rules-section" class="hub-section" aria-labelledby="rules-heading">
+                    <div class="section-heading"><div><p class="eyebrow">CHUKA HUB</p><h2 id="rules-heading">Tournament Rules</h2></div></div>
+                    <div class="hub-grid">
+                        <div class="hub-rule"><strong>Knockout format</strong><span class="hub-muted">Every generated fixture is part of a single-elimination knockout bracket.</span></div>
+                        <div class="hub-rule"><strong>Verified players only</strong><span class="hub-muted">Only registrations with VERIFIED payment status enter the draw.</span></div>
+                        <div class="hub-rule"><strong>No draws</strong><span class="hub-muted">A knockout match must produce a winner. If needed, use the game's tie-break before submitting the final score.</span></div>
+                        <div class="hub-rule"><strong>Byes</strong><span class="hub-muted">When the verified player count is not a power of two, eligible players can receive automatic first-round byes.</span></div>
+                        <div class="hub-rule"><strong>Results</strong><span class="hub-muted">The tournament admin records scores. Winners are automatically advanced to the next round.</span></div>
+                        <div class="hub-rule"><strong>Public results</strong><span class="hub-muted">Fixtures, scores and champions can be viewed publicly without signing in.</span></div>
+                    </div>
+                    <p class="hub-muted" style="margin-top:1rem">These rules reflect the current knockout system shipped with this Chuka Tournament Hub build.</p>
+                </section>
+
+                <section id="verified-members-section" class="hub-section" aria-labelledby="verified-members-heading">
+                    <div class="section-heading"><div><p class="eyebrow">CURRENT TOURNAMENT</p><h2 id="verified-members-heading">Verified Members</h2><p class="hub-muted">Players whose tournament payment has been verified by the Chuka admin.</p></div></div>
+                    <p id="verified-members-message" class="hub-muted">Loading verified members…</p>
+                    <div id="verified-members-list" class="verified-members-list" aria-live="polite"></div>
+                </section>
+
+                <section id="whatsapp-groups-section" class="hub-section" aria-labelledby="whatsapp-groups-heading">
+                    <div class="section-heading"><div><p class="eyebrow">JOIN THE COMMUNITY</p><h2 id="whatsapp-groups-heading">Official WhatsApp Groups</h2><p class="hub-muted">Join the group that matches what you want to follow.</p></div></div>
+                    <div class="whatsapp-groups-grid">
+                        <a id="whatsapp-normal-link" class="whatsapp-group-card" href="#" target="_blank" rel="noopener noreferrer">
+                            <span class="whatsapp-group-icon">💬</span><strong>Player Community</strong><span>Normal tournament communication and player discussions.</span><b>Join group →</b>
+                        </a>
+                        <a id="whatsapp-results-link" class="whatsapp-group-card" href="#" target="_blank" rel="noopener noreferrer">
+                            <span class="whatsapp-group-icon">🏆</span><strong>Results Group</strong><span>Match results, fixtures and tournament updates.</span><b>Join group →</b>
+                        </a>
+                        <a id="whatsapp-admin-updates-link" class="whatsapp-group-card" href="#" target="_blank" rel="noopener noreferrer">
+                            <span class="whatsapp-group-icon">📢</span><strong>Admin Updates</strong><span>Official announcements and important admin notices.</span><b>Join group →</b>
+                        </a>
+                    </div>
+                    <p id="whatsapp-groups-public-message" class="hub-muted" style="margin-top:.8rem"></p>
+                </section>
+
+                <section id="champions-section" class="hub-section" aria-labelledby="champions-heading">
+                    <div class="section-heading"><div><p class="eyebrow">HISTORY</p><h2 id="champions-heading">Hall of Champions</h2><p class="hub-muted">Completed tournament winners are loaded from the public tournament results.</p></div></div>
+                    <div id="champions-list" class="champions-list"><p class="hub-muted">Loading tournament history…</p></div>
+                </section>
+
+                <section id="whatsapp-section" class="hub-section" aria-labelledby="whatsapp-heading">
+                    <div class="section-heading"><div><p class="eyebrow">COMMUNITY</p><h2 id="whatsapp-heading">WhatsApp Tournament Community</h2><p class="hub-muted">Use the tournament community for announcements and player communication.</p></div></div>
+                    <div class="hub-rule">
+                        <strong>Share this tournament on WhatsApp</strong>
+                        <span class="hub-muted">Send the public tournament dashboard link to players and friends.</span>
+                        <div class="hub-actions">
+                            <a id="whatsapp-share-button" class="primary-button" href="#" target="_blank" rel="noopener">💬 Share tournament link</a>
+                        </div>
+                        <p id="whatsapp-share-message" class="hub-muted" style="margin:.7rem 0 0"></p>
+                    </div>
+                </section>
+
+                <!-- =================================================
+                     QUICK LINKS
+                     ================================================= -->
+
+                <section class="quick-links-section">
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <p class="eyebrow">
+                                CHUKA HUB
+                            </p>
+
+                            <h2>
+                                Quick Links
+                            </h2>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="quick-links-grid">
+
+                        <a
+                            href="#rules-section"
+                            class="quick-link-card"
+                        >
+                            <strong>
+                                Rules
+                            </strong>
+
+                            <span>
+                                Tournament rules
+                            </span>
+                        </a>
+
+
+                        <a
+                            href="#fixtures-section"
+                            class="quick-link-card"
+                        >
+                            <strong>
+                                Fixtures
+                            </strong>
+
+                            <span>
+                                View tournament matches
+                            </span>
+                        </a>
+
+
+                        <a
+                            href="#verified-members-section"
+                            class="quick-link-card"
+                        >
+                            <strong>
+                                Verified Members
+                            </strong>
+
+                            <span>
+                                View verified tournament players
+                            </span>
+                        </a>
+
+
+                        <a
+                            href="#champions-section"
+                            class="quick-link-card"
+                        >
+                            <strong>
+                                Champions
+                            </strong>
+
+                            <span>
+                                Hall of Champions
+                            </span>
+                        </a>
+
+
+                        <a
+                            href="#whatsapp-section"
+                            class="quick-link-card"
+                        >
+                            <strong>
+                                WhatsApp
+                            </strong>
+
+                            <span>
+                                Tournament community
+                            </span>
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </main>
+
+
+            <!-- Footer -->
+
+            <footer class="app-footer">
+
+                <p>
+                    Chuka Tournament Hub
+                </p>
+
+                <p>
+                    Weekly eFootball competition
+                </p>
+
+            </footer>
+
+        </section>
+
+    </div>
+
+
+    <!-- =====================================================
+         APPLICATION JAVASCRIPT
+         ===================================================== -->
+
+    <script
+        type="module"
+        src="./js/app.js"
+    ></script>
+
+</body>
+
+</html>

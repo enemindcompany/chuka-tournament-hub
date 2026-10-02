@@ -1,0 +1,160 @@
+/* CHUKA TOURNAMENT HUB — polished responsive theme */
+:root{--bg:#07111f;--panel:#0d1a2b;--panel2:#122238;--line:#253b55;--text:#f7fafc;--muted:#9fb0c4;--green:#65e0a3;--green2:#2bb673;--gold:#f4cc67;--danger:#ff8d8d;--shadow:0 18px 50px rgba(0,0,0,.28);--radius:20px}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(circle at 15% 0%,#17395a 0,transparent 34%),radial-gradient(circle at 85% 10%,#163b32 0,transparent 30%),linear-gradient(145deg,#06101d,#091525 55%,#06111f);color:var(--text);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}.hidden{display:none!important}.app{min-height:100vh}.screen{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0 54px}.auth-card{width:min(460px,100%);margin:8vh auto 0;padding:38px;border:1px solid rgba(101,224,163,.22);border-radius:28px;background:linear-gradient(145deg,rgba(17,34,54,.96),rgba(8,20,34,.96));box-shadow:var(--shadow);text-align:center}.brand-lockup{display:flex;align-items:center;gap:12px}.crest{width:58px;height:58px;object-fit:contain;border-radius:50%;background:#fff;padding:4px;box-shadow:0 8px 24px rgba(0,0,0,.3)}.crest.small{width:46px;height:46px}.brand-copy{display:flex;flex-direction:column;text-align:left;line-height:1.1}.brand-copy strong{font-size:1rem;letter-spacing:.14em}.brand-copy span{font-size:.7rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-top:4px}.brand-mark{font-weight:900;letter-spacing:.18em;color:var(--green);font-size:1.05rem}.brand-mark.small{font-size:.78rem}.auth-card h1{font-size:clamp(2rem,7vw,3.2rem);line-height:1;margin:22px 0 12px}.auth-card>p{color:var(--muted);max-width:34ch;margin:0 auto 24px}.google-button{width:100%;min-height:48px;border:1px solid #dadce0;background:#fff;color:#202124;border-radius:8px;display:flex;align-items:center;justify-content:center;gap:12px;font:600 15px Roboto,Arial,sans-serif;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.12);transition:transform .15s,box-shadow .15s}.google-button:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.2)}.google-icon{width:20px;height:20px;display:block}.app-header{position:sticky;top:0;z-index:20;width:min(1180px,calc(100% - 32px));margin:0 auto;padding:16px 0;display:flex;justify-content:space-between;align-items:center;gap:18px;background:rgba(6,16,29,.84);backdrop-filter:blur(16px);border-bottom:1px solid rgba(159,176,196,.12)}.app-header>div:first-child{display:flex;align-items:center;gap:12px}.app-header h1{font-size:1.15rem;margin:4px 0 0}.header-account{display:flex;align-items:center;gap:10px;color:var(--muted)}.dashboard-content{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:24px 0}.welcome-section{padding:34px 0 22px}.welcome-section h2{font-size:clamp(2rem,5vw,3.3rem);line-height:1.05;margin:.2rem 0 .6rem}.eyebrow{margin:0 0 .35rem;color:var(--green);font-size:.72rem;font-weight:850;letter-spacing:.14em;text-transform:uppercase}.section-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap}.section-heading h2{margin:.15rem 0 .3rem;font-size:1.45rem}.tournament-section,.registration-section,.payment-status-section,.admin-section,.fixture-section,.hub-section,.quick-links-section{margin:18px 0;padding:22px;border:1px solid rgba(159,176,196,.17);border-radius:var(--radius);background:linear-gradient(145deg,rgba(14,29,47,.9),rgba(9,20,34,.88));box-shadow:0 12px 36px rgba(0,0,0,.12);scroll-margin-top:92px}.tournament-card{display:grid;grid-template-columns:minmax(180px,280px) 1fr;gap:22px;margin-top:18px}.tournament-image-wrapper{min-height:180px;border-radius:16px;overflow:hidden;background:linear-gradient(135deg,#15344f,#0b1c2d);border:1px solid rgba(159,176,196,.14)}.tournament-image{width:100%;height:100%;min-height:180px;object-fit:cover}.tournament-details{display:flex;flex-direction:column;justify-content:center}.tournament-label{font-size:1.55rem;font-weight:850;margin:.2rem 0 .6rem}.status-badge,.payment-status-badge{display:inline-flex;width:max-content;align-items:center;border:1px solid rgba(101,224,163,.3);background:rgba(101,224,163,.1);color:var(--green);border-radius:999px;padding:.32rem .65rem;font-size:.72rem;font-weight:850;letter-spacing:.06em}.registration-count,.slots-remaining,.payment-info{color:var(--muted);margin:.45rem 0}.primary-button,.secondary-button{appearance:none;border-radius:11px;padding:.72rem 1rem;font:750 14px inherit;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:.45rem;transition:.15s}.primary-button{border:1px solid rgba(101,224,163,.45);background:linear-gradient(135deg,var(--green),var(--green2));color:#052014;box-shadow:0 8px 22px rgba(43,182,115,.2)}.secondary-button{border:1px solid var(--line);background:#14253a;color:var(--text)}.primary-button:hover,.secondary-button:hover{transform:translateY(-1px);filter:brightness(1.06)}.registration-actions,.fixture-actions,.fixture-admin-controls,.hub-actions{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:14px}.registration-card{max-width:760px}.registration-form{display:grid;gap:15px;margin-top:16px}.form-group{display:grid;gap:6px}.form-group label{font-weight:750;font-size:.9rem}.form-group input,.readonly-field{width:100%;padding:.78rem .85rem;border:1px solid var(--line);border-radius:10px;background:#091727;color:var(--text);outline:none}.form-group input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(101,224,163,.1)}.form-help,.hub-muted,.fixture-note{color:var(--muted);font-size:.88rem}.message{color:var(--muted);min-height:1.3em}.quick-links-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-top:14px}.quick-link-card{min-height:108px;padding:16px;border:1px solid rgba(159,176,196,.17);border-radius:16px;text-decoration:none;background:rgba(18,34,55,.65);display:flex;flex-direction:column;justify-content:space-between;transition:.18s}.quick-link-card:hover{transform:translateY(-3px);border-color:rgba(101,224,163,.38);background:rgba(20,43,65,.9)}.quick-link-card strong{font-size:.98rem}.quick-link-card span{font-size:.8rem;color:var(--muted)}.app-footer{width:min(1180px,calc(100% - 32px));margin:0 auto;padding:28px 0;color:var(--muted);font-size:.8rem;border-top:1px solid rgba(159,176,196,.12)}.verified-members-list,.champions-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin-top:14px}.verified-member-row,.champion-row{display:flex;align-items:center;gap:10px;padding:13px 14px;border:1px solid rgba(159,176,196,.16);border-radius:13px;background:rgba(18,34,55,.62)}.verified-member-number{width:30px;height:30px;display:grid;place-items:center;border-radius:50%;background:rgba(101,224,163,.1);color:var(--green);font-weight:850}.verified-member-name{font-weight:750;overflow-wrap:anywhere}.verified-member-status{margin-left:auto;color:var(--green);font-size:.7rem;font-weight:850;letter-spacing:.06em}.champion-row strong{margin-left:auto;color:var(--gold)}.hub-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.hub-rule{padding:15px;border:1px solid rgba(159,176,196,.14);border-radius:14px;background:rgba(18,34,55,.55)}.hub-rule strong{display:block;margin-bottom:4px}.admin-table-wrapper{overflow:auto}.admin-table{width:100%;border-collapse:collapse;min-width:650px}.admin-table th,.admin-table td{padding:12px;border-bottom:1px solid rgba(159,176,196,.14);text-align:left}.admin-table th{color:var(--muted);font-size:.7rem;text-transform:uppercase;letter-spacing:.06em}.admin-overview-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:14px 0}.admin-overview-card{padding:15px;border:1px solid rgba(159,176,196,.14);border-radius:14px;background:rgba(18,34,55,.55)}.admin-overview-card span{color:var(--muted);font-size:.75rem}.admin-overview-card strong{display:block;font-size:1.5rem;margin-top:4px}.fixture-rounds{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:12px;margin-top:14px}.fixture-round{border:1px solid rgba(159,176,196,.15);border-radius:15px;padding:12px;background:#0a1727}.fixture-match{padding:12px;margin:9px 0;border:1px solid rgba(159,176,196,.14);border-radius:12px;background:#102137}.fixture-player{display:flex;justify-content:space-between;gap:10px;padding:5px 0}.fixture-player.winner{color:var(--green);font-weight:850}.fixture-player .score{min-width:22px;text-align:right;font-weight:850}.fixture-meta{color:var(--muted);font-size:.72rem}.fixture-status{display:inline-flex;border-radius:999px;padding:.18rem .48rem;background:rgba(159,176,196,.1);font-size:.68rem;font-weight:800}.fixture-score-input{width:62px;padding:.5rem;border:1px solid var(--line);border-radius:8px;background:#081523;color:var(--text)}.status-pill{display:inline-flex;border-radius:999px;padding:.2rem .55rem;background:rgba(244,204,103,.1);color:var(--gold);font-size:.7rem;font-weight:800}.payment-status-header{display:flex;justify-content:space-between;align-items:center;gap:10px}.payment-status-section{background:linear-gradient(145deg,rgba(17,44,44,.72),rgba(9,25,34,.9))}
+@media(max-width:900px){.quick-links-grid{grid-template-columns:repeat(3,1fr)}.hub-grid{grid-template-columns:repeat(2,1fr)}.admin-overview-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:650px){.screen,.dashboard-content,.app-footer,.app-header{width:min(100% - 20px,1180px)}.app-header{position:relative}.header-account{font-size:.8rem}.tournament-card{grid-template-columns:1fr}.tournament-image-wrapper{max-height:220px}.quick-links-grid{grid-template-columns:repeat(2,1fr)}.hub-grid{grid-template-columns:1fr}.auth-card{padding:28px 20px}.tournament-section,.registration-section,.payment-status-section,.admin-section,.fixture-section,.hub-section,.quick-links-section{padding:17px}.welcome-section{padding-top:20px}.verified-members-list,.champions-list{grid-template-columns:1fr}}
+@media(max-width:430px){.quick-links-grid{grid-template-columns:1fr}.app-header{align-items:flex-start;flex-direction:column}.header-account{width:100%;justify-content:space-between}.crest{width:50px;height:50px}.crest.small{width:40px;height:40px}}
+
+/* =========================================================
+   CHUKA MAIN PAGE — FINAL VISUAL PASS
+   ========================================================= */
+:root{
+  --bg:#06101c;
+  --surface:#0c1b2c;
+  --surface-2:#10243a;
+  --surface-3:#142d47;
+  --line:rgba(164,190,215,.16);
+  --line-strong:rgba(101,224,163,.32);
+  --text:#f7fbff;
+  --muted:#9eb1c5;
+  --green:#63e3a0;
+  --green-dark:#28ae70;
+  --gold:#f4ce72;
+  --danger:#ff8989;
+  --shadow:0 22px 60px rgba(0,0,0,.28);
+}
+
+body{
+  background:
+    radial-gradient(900px 500px at 8% -8%,rgba(38,93,139,.34),transparent 60%),
+    radial-gradient(720px 420px at 95% 2%,rgba(27,111,79,.20),transparent 62%),
+    linear-gradient(145deg,#050d18 0%,#081626 48%,#06111e 100%);
+}
+
+#auth-screen{position:relative;overflow:hidden}
+#auth-screen::before,#auth-screen::after{
+  content:"";position:absolute;pointer-events:none;border-radius:50%;filter:blur(2px)
+}
+#auth-screen::before{width:360px;height:360px;top:-170px;left:-160px;background:rgba(101,224,163,.07)}
+#auth-screen::after{width:420px;height:420px;right:-220px;bottom:-220px;background:rgba(54,116,170,.09)}
+.auth-card{
+  border-color:rgba(101,224,163,.24);
+  background:linear-gradient(155deg,rgba(16,36,57,.97),rgba(7,19,32,.98));
+  box-shadow:0 32px 90px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.auth-card h1{font-weight:900;letter-spacing:-1.6px}
+.auth-card > p{color:#a9b9ca}
+
+.app-header{
+  border-bottom-color:rgba(164,190,215,.12);
+  background:rgba(5,13,24,.82);
+  box-shadow:0 8px 28px rgba(0,0,0,.12);
+}
+
+.welcome-section{
+  position:relative;
+  overflow:hidden;
+  padding:42px 36px 34px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:
+    linear-gradient(120deg,rgba(17,42,65,.96),rgba(9,23,39,.92)),
+    radial-gradient(circle at 85% 20%,rgba(101,224,163,.12),transparent 35%);
+  box-shadow:var(--shadow);
+}
+.welcome-section::after{
+  content:"";position:absolute;width:260px;height:260px;right:-120px;top:-150px;border-radius:50%;
+  background:rgba(101,224,163,.09);filter:blur(4px);pointer-events:none
+}
+.welcome-section h2{font-weight:900;letter-spacing:-1.8px}
+
+.tournament-section{
+  margin-top:22px;padding:24px;border-color:rgba(101,224,163,.16);
+  background:linear-gradient(145deg,rgba(13,31,50,.96),rgba(7,19,32,.94));
+  box-shadow:var(--shadow);
+}
+.tournament-card{
+  grid-template-columns:minmax(230px,360px) minmax(0,1fr);
+  gap:0;overflow:hidden;border:1px solid rgba(164,190,215,.14);border-radius:22px;
+  background:#091725;box-shadow:0 18px 44px rgba(0,0,0,.22)
+}
+.tournament-image-wrapper{min-height:330px;border:0;border-radius:0;background:#07121f}
+.tournament-image{min-height:330px;object-fit:cover;transition:transform .5s ease}
+.tournament-card:hover .tournament-image{transform:scale(1.025)}
+.tournament-details{padding:38px 40px;background:linear-gradient(145deg,rgba(18,43,67,.88),rgba(8,20,34,.96))}
+.tournament-label{font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900;letter-spacing:-1px}
+.status-badge{box-shadow:0 6px 18px rgba(101,224,163,.08)}
+.registration-count{margin-top:26px}
+.registration-count strong{font-size:clamp(40px,5vw,56px)}
+.slots-remaining{font-size:.88rem}
+
+.primary-button{min-height:48px;border-radius:12px;font-weight:850}
+.primary-button:hover:not(:disabled){filter:brightness(1.08);transform:translateY(-2px)}
+.secondary-button{min-height:44px;border-radius:12px}
+
+.quick-links-section,.hub-section,.fixture-section,.registration-section,.payment-status-section,.admin-section{
+  border-color:var(--line);background:linear-gradient(145deg,rgba(13,31,50,.88),rgba(7,19,32,.86));
+  box-shadow:0 14px 38px rgba(0,0,0,.14)
+}
+.quick-links-grid{gap:12px}
+.quick-link-card{
+  min-height:126px;padding:18px;border-color:var(--line);
+  background:linear-gradient(145deg,rgba(18,40,62,.82),rgba(10,25,41,.86));
+}
+.quick-link-card strong{font-size:1rem;font-weight:850}
+.quick-link-card span{font-size:.78rem}
+.quick-link-card:hover{border-color:var(--line-strong);box-shadow:0 10px 26px rgba(0,0,0,.15)}
+
+.admin-section{border-color:rgba(244,206,114,.18)}
+.admin-overview-card{background:linear-gradient(145deg,rgba(18,42,64,.75),rgba(10,25,40,.75));border-color:var(--line)}
+.admin-overview-card strong{color:var(--green)}
+.admin-media-card{
+  margin:20px 0;padding:18px;border:1px solid rgba(101,224,163,.2);border-radius:18px;
+  background:linear-gradient(145deg,rgba(15,39,58,.82),rgba(8,22,36,.82))
+}
+.admin-media-copy h3{margin:.2rem 0 .35rem;font-size:1.1rem}
+.admin-media-grid{display:grid;grid-template-columns:minmax(180px,280px) 1fr;gap:18px;align-items:center;margin-top:14px}
+.admin-image-preview-wrap{position:relative;min-height:170px;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#07131f;display:grid;place-items:center}
+.admin-image-preview{width:100%;height:170px;object-fit:cover;display:block}
+.admin-image-empty{position:absolute;color:var(--muted);font-size:.8rem}
+.admin-media-form{display:grid;gap:10px}
+.admin-file-label{display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border:1px dashed rgba(101,224,163,.38);border-radius:11px;background:rgba(101,224,163,.05);color:var(--green);font-weight:800;cursor:pointer}
+.admin-file-label input{display:none}
+.admin-url-row{display:grid;grid-template-columns:1fr auto;gap:8px}
+.admin-url-row input{min-width:0;padding:.78rem .85rem;border:1px solid var(--line);border-radius:10px;background:#071522;color:var(--text);outline:none}
+.admin-url-row input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(101,224,163,.1)}
+
+@media(max-width:760px){
+  .welcome-section{padding:30px 22px 27px}
+  .tournament-card{grid-template-columns:1fr}
+  .tournament-image-wrapper,.tournament-image{min-height:230px;height:230px}
+  .tournament-details{padding:28px 24px}
+  .admin-media-grid{grid-template-columns:1fr}
+  .admin-image-preview-wrap,.admin-image-preview{height:210px;min-height:210px}
+}
+@media(max-width:480px){
+  .tournament-section,.quick-links-section,.hub-section,.fixture-section,.registration-section,.payment-status-section,.admin-section{padding:15px}
+  .welcome-section{border-radius:20px}
+  .tournament-details{padding:23px 19px}
+  .admin-url-row{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   WHATSAPP GROUPS + ADMIN COMMUNITY CONTROLS
+   ========================================================= */
+.admin-whatsapp-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.admin-whatsapp-grid label{display:grid;gap:7px;font-size:.85rem;font-weight:750;color:var(--text)}
+.admin-whatsapp-grid input{width:100%;padding:.8rem .85rem;border:1px solid var(--line);border-radius:10px;background:#091727;color:var(--text);outline:none}
+.admin-whatsapp-grid input:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(101,224,163,.1)}
+.admin-whatsapp-grid .primary-button{grid-column:1 / -1;justify-self:start}
+.admin-whatsapp-grid .message{grid-column:1 / -1}
+.whatsapp-groups-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:15px}
+.whatsapp-group-card{min-height:175px;padding:19px;border:1px solid rgba(159,176,196,.17);border-radius:17px;text-decoration:none;background:linear-gradient(145deg,rgba(18,43,55,.78),rgba(10,25,38,.88));display:flex;flex-direction:column;gap:7px;transition:.18s}
+.whatsapp-group-card:hover:not(.is-disabled){transform:translateY(-3px);border-color:rgba(101,224,163,.42);box-shadow:0 14px 30px rgba(0,0,0,.16)}
+.whatsapp-group-card.is-disabled{opacity:.55;pointer-events:none}
+.whatsapp-group-card strong{font-size:1.02rem}
+.whatsapp-group-card span:not(.whatsapp-group-icon){color:var(--muted);font-size:.82rem;line-height:1.5}
+.whatsapp-group-card b{margin-top:auto;color:var(--green);font-size:.8rem}
+.whatsapp-group-icon{font-size:1.55rem}
+@media(max-width:900px){.admin-whatsapp-grid,.whatsapp-groups-grid{grid-template-columns:1fr 1fr}.admin-whatsapp-grid .primary-button,.admin-whatsapp-grid .message{grid-column:1 / -1}}
+@media(max-width:600px){.admin-whatsapp-grid,.whatsapp-groups-grid{grid-template-columns:1fr}.admin-whatsapp-grid .primary-button{width:100%}}
